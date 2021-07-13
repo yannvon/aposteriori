@@ -7,7 +7,8 @@ pragma solidity >=0.7.0 <0.9.0;
  * @dev Implements cascade a posteriori consensus
  */
 contract Multishot {
-   
+
+    event Decided(address indexed txOrigin, uint txNonce, uint256 decision);
 
     struct Decision {
         // If you can limit the length to a certain number of bytes, 
@@ -93,7 +94,11 @@ contract Multishot {
         // 2) decide on max value
 
         if (dec.weight_received > majorityStake) {
+            // Decision can be made
             dec.decision = dec.currentMax;
+
+            // Emit event, such that processes don't have to query themselves
+            emit Decided(txOrigin, nonce, dec.decision);
         }      
 
         // Save new decision object & mark sender as having already proposed

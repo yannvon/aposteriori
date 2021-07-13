@@ -27,7 +27,7 @@ var (
 )
 
 // MultishotABI is the input ABI used to generate the binding from.
-const MultishotABI = "[{\"inputs\":[{\"internalType\":\"address[]\",\"name\":\"validators\",\"type\":\"address[]\"},{\"internalType\":\"uint256[]\",\"name\":\"stake\",\"type\":\"uint256[]\"}],\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"decisions\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"decision\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"weight_received\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"currentMax\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"majorityStake\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"txOrigin\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"nonce\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"txHash\",\"type\":\"uint256\"}],\"name\":\"propose\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"txOrigin\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"nonce\",\"type\":\"uint256\"}],\"name\":\"read\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"txHash\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"validatorStake\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"}]"
+const MultishotABI = "[{\"inputs\":[{\"internalType\":\"address[]\",\"name\":\"validators\",\"type\":\"address[]\"},{\"internalType\":\"uint256[]\",\"name\":\"stake\",\"type\":\"uint256[]\"}],\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"txOrigin\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"txNonce\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"decision\",\"type\":\"uint256\"}],\"name\":\"Decided\",\"type\":\"event\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"decisions\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"decision\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"weight_received\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"currentMax\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"majorityStake\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"txOrigin\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"nonce\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"txHash\",\"type\":\"uint256\"}],\"name\":\"propose\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"txOrigin\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"nonce\",\"type\":\"uint256\"}],\"name\":\"read\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"txHash\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"validatorStake\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"}]"
 
 // MultishotFuncSigs maps the 4-byte function signature to its string representation.
 var MultishotFuncSigs = map[string]string{
@@ -39,7 +39,7 @@ var MultishotFuncSigs = map[string]string{
 }
 
 // MultishotBin is the compiled bytecode used for deploying new contracts.
-var MultishotBin = "0x608060405234801561001057600080fd5b5060405161079938038061079983398101604081905261002f91610166565b6000805b83518110156100d05782818151811061004e5761004e61031a565b602002602001015160008086848151811061006b5761006b61031a565b60200260200101516001600160a01b03166001600160a01b03168152602001908152602001600020819055508281815181106100a9576100a961031a565b6020026020010151826100bc9190610290565b9150806100c8816102e9565b915050610033565b5060056100de8260046102ca565b6100e891906102a8565b60015550610346915050565b600082601f83011261010557600080fd5b8151602061011a6101158361026d565b61023d565b80838252828201915082860187848660051b890101111561013a57600080fd5b60005b858110156101595781518452928401929084019060010161013d565b5090979650505050505050565b6000806040838503121561017957600080fd5b82516001600160401b038082111561019057600080fd5b818501915085601f8301126101a457600080fd5b815160206101b46101158361026d565b8083825282820191508286018a848660051b89010111156101d457600080fd5b600096505b8487101561020c5780516001600160a01b03811681146101f857600080fd5b8352600196909601959183019183016101d9565b509188015191965090935050508082111561022657600080fd5b50610233858286016100f4565b9150509250929050565b604051601f8201601f191681016001600160401b038111828210171561026557610265610330565b604052919050565b60006001600160401b0382111561028657610286610330565b5060051b60200190565b600082198211156102a3576102a3610304565b500190565b6000826102c557634e487b7160e01b600052601260045260246000fd5b500490565b60008160001904831182151516156102e4576102e4610304565b500290565b60006000198214156102fd576102fd610304565b5060010190565b634e487b7160e01b600052601160045260246000fd5b634e487b7160e01b600052603260045260246000fd5b634e487b7160e01b600052604160045260246000fd5b610444806103556000396000f3fe608060405234801561001057600080fd5b50600436106100575760003560e01c8063014c2add1461005c5780630d34b2ad1461008257806339b7fcc614610097578063d6a315a3146100b7578063f96e800114610108575b600080fd5b61006f61006a36600461038b565b610111565b6040519081526020015b60405180910390f35b6100956100903660046103b5565b61014f565b005b61006f6100a5366004610369565b60006020819052908152604090205481565b6100ed6100c536600461038b565b6002602081815260009384526040808520909152918352912080546001820154919092015483565b60408051938452602084019290925290820152606001610079565b61006f60015481565b6001600160a01b0382166000908152600260209081526040808320848452909152812080541561014357549050610149565b60009150505b92915050565b6001600160a01b03831660009081526002602090815260408083208584528252808320338452600381019092529091205460ff16156101cd5760405162461bcd60e51b81526020600482015260156024820152742cb7ba9030b63932b0b23c90383937b837b9b2b21760591b60448201526064015b60405180910390fd5b80541561021c5760405162461bcd60e51b815260206004820152601c60248201527f436f6e73656e73757320616c72656164792064656c6976657265642e0000000060448201526064016101c4565b3360009081526020819052604090205461028e5760405162461bcd60e51b815260206004820152602d60248201527f596f75206e656564207374616b6520746f2062652061626c6520746f2070726f60448201526c3837b9b29030903b30b63ab29760991b60648201526084016101c4565b33600090815260208181526040808320548584526004850190925282208054919290916102bc9084906103e8565b909155505033600090815260208190526040812054600183018054919290916102e69084906103e8565b909155505060008281526004820160205260408082205460028401548352912054101561031557600281018290555b6001548160010154111561032b57600281015481555b336000908152600390910160205260409020805460ff19166001179055505050565b80356001600160a01b038116811461036457600080fd5b919050565b60006020828403121561037b57600080fd5b6103848261034d565b9392505050565b6000806040838503121561039e57600080fd5b6103a78361034d565b946020939093013593505050565b6000806000606084860312156103ca57600080fd5b6103d38461034d565b95602085013595506040909401359392505050565b6000821982111561040957634e487b7160e01b600052601160045260246000fd5b50019056fea2646970667358221220f09c6d1da56e4d970d790747a5b509a8f661a69c0a7656d8804976388e174b5664736f6c63430008060033"
+var MultishotBin = "0x60806040523480156200001157600080fd5b506040516200082338038062000823833981016040819052620000349162000187565b6000805b8351811015620000e45782818151811062000057576200005762000358565b602002602001015160008086848151811062000077576200007762000358565b60200260200101516001600160a01b03166001600160a01b0316815260200190815260200160002081905550828181518110620000b857620000b862000358565b602002602001015182620000cd9190620002c4565b915080620000db8162000324565b91505062000038565b506005620000f482600462000302565b620001009190620002df565b6001555062000384915050565b600082601f8301126200011f57600080fd5b815160206200013862000132836200029e565b6200026b565b80838252828201915082860187848660051b89010111156200015957600080fd5b60005b858110156200017a578151845292840192908401906001016200015c565b5090979650505050505050565b600080604083850312156200019b57600080fd5b82516001600160401b0380821115620001b357600080fd5b818501915085601f830112620001c857600080fd5b81516020620001db62000132836200029e565b8083825282820191508286018a848660051b8901011115620001fc57600080fd5b600096505b84871015620002375780516001600160a01b03811681146200022257600080fd5b83526001969096019591830191830162000201565b50918801519196509093505050808211156200025257600080fd5b5062000261858286016200010d565b9150509250929050565b604051601f8201601f191681016001600160401b03811182821017156200029657620002966200036e565b604052919050565b60006001600160401b03821115620002ba57620002ba6200036e565b5060051b60200190565b60008219821115620002da57620002da62000342565b500190565b600082620002fd57634e487b7160e01b600052601260045260246000fd5b500490565b60008160001904831182151516156200031f576200031f62000342565b500290565b60006000198214156200033b576200033b62000342565b5060010190565b634e487b7160e01b600052601160045260246000fd5b634e487b7160e01b600052603260045260246000fd5b634e487b7160e01b600052604160045260246000fd5b61048f80620003946000396000f3fe608060405234801561001057600080fd5b50600436106100575760003560e01c8063014c2add1461005c5780630d34b2ad1461008257806339b7fcc614610097578063d6a315a3146100b7578063f96e800114610108575b600080fd5b61006f61006a3660046103d6565b610111565b6040519081526020015b60405180910390f35b610095610090366004610400565b61014f565b005b61006f6100a53660046103b4565b60006020819052908152604090205481565b6100ed6100c53660046103d6565b6002602081815260009384526040808520909152918352912080546001820154919092015483565b60408051938452602084019290925290820152606001610079565b61006f60015481565b6001600160a01b0382166000908152600260209081526040808320848452909152812080541561014357549050610149565b60009150505b92915050565b6001600160a01b03831660009081526002602090815260408083208584528252808320338452600381019092529091205460ff16156101cd5760405162461bcd60e51b81526020600482015260156024820152742cb7ba9030b63932b0b23c90383937b837b9b2b21760591b60448201526064015b60405180910390fd5b80541561021c5760405162461bcd60e51b815260206004820152601c60248201527f436f6e73656e73757320616c72656164792064656c6976657265642e0000000060448201526064016101c4565b3360009081526020819052604090205461028e5760405162461bcd60e51b815260206004820152602d60248201527f596f75206e656564207374616b6520746f2062652061626c6520746f2070726f60448201526c3837b9b29030903b30b63ab29760991b60648201526084016101c4565b33600090815260208181526040808320548584526004850190925282208054919290916102bc908490610433565b909155505033600090815260208190526040812054600183018054919290916102e6908490610433565b909155505060008281526004820160205260408082205460028401548352912054101561031557600281018290555b600154816001015411156103765760028101548082556040516001600160a01b038616917f49313ea52c4c4f42773231ed26a31b3826cdaf9d6fe5c067767e151110fd50239161036d91878252602082015260400190565b60405180910390a25b336000908152600390910160205260409020805460ff19166001179055505050565b80356001600160a01b03811681146103af57600080fd5b919050565b6000602082840312156103c657600080fd5b6103cf82610398565b9392505050565b600080604083850312156103e957600080fd5b6103f283610398565b946020939093013593505050565b60008060006060848603121561041557600080fd5b61041e84610398565b95602085013595506040909401359392505050565b6000821982111561045457634e487b7160e01b600052601160045260246000fd5b50019056fea2646970667358221220101cdeed9177bf217e57e4241934ce86d62549304d17745f795a7d4bee403f2e64736f6c63430008060033"
 
 // DeployMultishot deploys a new Ethereum contract, binding an instance of Multishot to it.
 func DeployMultishot(auth *bind.TransactOpts, backend bind.ContractBackend, validators []common.Address, stake []*big.Int) (common.Address, *types.Transaction, *Multishot, error) {
@@ -359,4 +359,150 @@ func (_Multishot *MultishotSession) Propose(txOrigin common.Address, nonce *big.
 // Solidity: function propose(address txOrigin, uint256 nonce, uint256 txHash) returns()
 func (_Multishot *MultishotTransactorSession) Propose(txOrigin common.Address, nonce *big.Int, txHash *big.Int) (*types.Transaction, error) {
 	return _Multishot.Contract.Propose(&_Multishot.TransactOpts, txOrigin, nonce, txHash)
+}
+
+// MultishotDecidedIterator is returned from FilterDecided and is used to iterate over the raw logs and unpacked data for Decided events raised by the Multishot contract.
+type MultishotDecidedIterator struct {
+	Event *MultishotDecided // Event containing the contract specifics and raw log
+
+	contract *bind.BoundContract // Generic contract to use for unpacking event data
+	event    string              // Event name to use for unpacking event data
+
+	logs chan types.Log        // Log channel receiving the found contract events
+	sub  ethereum.Subscription // Subscription for errors, completion and termination
+	done bool                  // Whether the subscription completed delivering logs
+	fail error                 // Occurred error to stop iteration
+}
+
+// Next advances the iterator to the subsequent event, returning whether there
+// are any more events found. In case of a retrieval or parsing error, false is
+// returned and Error() can be queried for the exact failure.
+func (it *MultishotDecidedIterator) Next() bool {
+	// If the iterator failed, stop iterating
+	if it.fail != nil {
+		return false
+	}
+	// If the iterator completed, deliver directly whatever's available
+	if it.done {
+		select {
+		case log := <-it.logs:
+			it.Event = new(MultishotDecided)
+			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+				it.fail = err
+				return false
+			}
+			it.Event.Raw = log
+			return true
+
+		default:
+			return false
+		}
+	}
+	// Iterator still in progress, wait for either a data or an error event
+	select {
+	case log := <-it.logs:
+		it.Event = new(MultishotDecided)
+		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+			it.fail = err
+			return false
+		}
+		it.Event.Raw = log
+		return true
+
+	case err := <-it.sub.Err():
+		it.done = true
+		it.fail = err
+		return it.Next()
+	}
+}
+
+// Error returns any retrieval or parsing error occurred during filtering.
+func (it *MultishotDecidedIterator) Error() error {
+	return it.fail
+}
+
+// Close terminates the iteration process, releasing any pending underlying
+// resources.
+func (it *MultishotDecidedIterator) Close() error {
+	it.sub.Unsubscribe()
+	return nil
+}
+
+// MultishotDecided represents a Decided event raised by the Multishot contract.
+type MultishotDecided struct {
+	TxOrigin common.Address
+	TxNonce  *big.Int
+	Decision *big.Int
+	Raw      types.Log // Blockchain specific contextual infos
+}
+
+// FilterDecided is a free log retrieval operation binding the contract event 0x49313ea52c4c4f42773231ed26a31b3826cdaf9d6fe5c067767e151110fd5023.
+//
+// Solidity: event Decided(address indexed txOrigin, uint256 txNonce, uint256 decision)
+func (_Multishot *MultishotFilterer) FilterDecided(opts *bind.FilterOpts, txOrigin []common.Address) (*MultishotDecidedIterator, error) {
+
+	var txOriginRule []interface{}
+	for _, txOriginItem := range txOrigin {
+		txOriginRule = append(txOriginRule, txOriginItem)
+	}
+
+	logs, sub, err := _Multishot.contract.FilterLogs(opts, "Decided", txOriginRule)
+	if err != nil {
+		return nil, err
+	}
+	return &MultishotDecidedIterator{contract: _Multishot.contract, event: "Decided", logs: logs, sub: sub}, nil
+}
+
+// WatchDecided is a free log subscription operation binding the contract event 0x49313ea52c4c4f42773231ed26a31b3826cdaf9d6fe5c067767e151110fd5023.
+//
+// Solidity: event Decided(address indexed txOrigin, uint256 txNonce, uint256 decision)
+func (_Multishot *MultishotFilterer) WatchDecided(opts *bind.WatchOpts, sink chan<- *MultishotDecided, txOrigin []common.Address) (event.Subscription, error) {
+
+	var txOriginRule []interface{}
+	for _, txOriginItem := range txOrigin {
+		txOriginRule = append(txOriginRule, txOriginItem)
+	}
+
+	logs, sub, err := _Multishot.contract.WatchLogs(opts, "Decided", txOriginRule)
+	if err != nil {
+		return nil, err
+	}
+	return event.NewSubscription(func(quit <-chan struct{}) error {
+		defer sub.Unsubscribe()
+		for {
+			select {
+			case log := <-logs:
+				// New log arrived, parse the event and forward to the user
+				event := new(MultishotDecided)
+				if err := _Multishot.contract.UnpackLog(event, "Decided", log); err != nil {
+					return err
+				}
+				event.Raw = log
+
+				select {
+				case sink <- event:
+				case err := <-sub.Err():
+					return err
+				case <-quit:
+					return nil
+				}
+			case err := <-sub.Err():
+				return err
+			case <-quit:
+				return nil
+			}
+		}
+	}), nil
+}
+
+// ParseDecided is a log parse operation binding the contract event 0x49313ea52c4c4f42773231ed26a31b3826cdaf9d6fe5c067767e151110fd5023.
+//
+// Solidity: event Decided(address indexed txOrigin, uint256 txNonce, uint256 decision)
+func (_Multishot *MultishotFilterer) ParseDecided(log types.Log) (*MultishotDecided, error) {
+	event := new(MultishotDecided)
+	if err := _Multishot.contract.UnpackLog(event, "Decided", log); err != nil {
+		return nil, err
+	}
+	event.Raw = log
+	return event, nil
 }
