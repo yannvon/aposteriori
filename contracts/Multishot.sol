@@ -74,7 +74,7 @@ contract Multishot {
         //    dec = Decision({}); // Create new decision struct, FIXME needed ?
         //}
 
-        require(dec.proposed[msg.sender], "You already proposed.");
+        require(!dec.proposed[msg.sender], "You already proposed.");
         require(dec.decision == 0, "Consensus already delivered.");
         require(validatorStake[msg.sender] > 0, "You need stake to be able to propose a value.");
 
@@ -96,13 +96,8 @@ contract Multishot {
             dec.decision = dec.currentMax;
         }      
 
-        // Save new decision object
+        // Save new decision object & mark sender as having already proposed
         dec.proposed[msg.sender] = true;
-        
-        // TODO assign new Decision -> needed or already done by reference ? 
-        // TODO test
-        
-
     }  
 
 }
