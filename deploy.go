@@ -1,7 +1,6 @@
 package main
 
 import (
-	"aposteriori/contracts"
 	"fmt"
 	"log"
 	"math/big"
@@ -10,6 +9,7 @@ import (
 	"github.com/ethereum/go-ethereum/accounts/abi/bind"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/ethclient"
+	"github.com/yannvon/aposteriori/contracts"
 )
 
 func deploy() {

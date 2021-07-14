@@ -1,7 +1,6 @@
 package main
 
 import (
-	"aposteriori/contracts"
 	"log"
 	"math/big"
 	"strings"
@@ -10,6 +9,7 @@ import (
 	"github.com/ethereum/go-ethereum/accounts/abi/bind"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/ethclient"
+	"github.com/yannvon/aposteriori/contracts"
 )
 
 const Key1 = ***REMOVED***
