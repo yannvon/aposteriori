@@ -1,4 +1,4 @@
-module aposteriori
+module github.com/yannvon/aposteriori
 
 go 1.16
 
