@@ -1,7 +1,6 @@
 package main
 
 import (
-	"aposteriori/contracts"
 	"log"
 	"math/big"
 	"strings"
@@ -10,6 +9,7 @@ import (
 	"github.com/ethereum/go-ethereum/accounts/abi/bind"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/ethclient"
+	"github.com/yannvon/aposteriori/contracts"
 )
 
 const Key1 = `{"address":"1de5fd683d94281f444eef6d27d4ed28c74296ee","crypto":{"cipher":"aes-128-ctr","ciphertext":"db6468bc882cdebc0e91390f1ca89ec5fd01f58588e4b59e242d165fec651e70","cipherparams":{"iv":"2eb45747c43554e62d190caeacde369a"},"kdf":"scrypt","kdfparams":{"dklen":32,"n":262144,"p":1,"r":8,"salt":"7fb4c263ac42fed18f70ac956bf4145359bc9818809d4d7830df24e84ea190ce"},"mac":"d6798382908a7779eeffb79caaa6d9b236175b677cdc561c331b0fb8f3930425"},"id":"7cff8b67-840b-440d-aed7-ba83d64345ba","version":3}`
