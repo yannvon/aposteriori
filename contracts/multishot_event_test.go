@@ -63,7 +63,7 @@ func TestMultishotEvents(t *testing.T) {
 	contractAddress, _, contract, _ := DeployMultishot(auth, client, validators, stake)
 
 	// Handle events
-	go handleEvents(client, t, contractAddress)
+	go handleEvents(client, t, contractAddress, contract)
 
 	// commit all pending transactions
 	client.Commit()
@@ -71,7 +71,7 @@ func TestMultishotEvents(t *testing.T) {
 	// Prepare test
 	txSender := auth.From
 	txNonce := big.NewInt(1)
-	txHash := big.NewInt(123415)
+	txHash := big.NewInt(42)
 
 	// Read if decision take already
 	if got, _ := contract.Read(nil, txSender, txNonce); got.Cmp(big.NewInt(0)) != 0 {
@@ -104,12 +104,14 @@ func TestMultishotEvents(t *testing.T) {
 
 	client.Commit()
 
+	// t.Log("txSender", txSender)
 	if got, _ := contract.Read(nil, txSender, txNonce); got.Cmp(txHash) != 0 {
 		t.Errorf("Expected decision to be sole proposed txHash. Got: %d", got)
 	}
+
 }
 
-func handleEvents(client *backends.SimulatedBackend, t *testing.T, contractAddress common.Address) {
+func handleEvents(client *backends.SimulatedBackend, t *testing.T, contractAddress common.Address, contract *Multishot) {
 	// Subscribe to events
 	query := ethereum.FilterQuery{
 		Addresses: []common.Address{contractAddress},
@@ -126,7 +128,9 @@ func handleEvents(client *backends.SimulatedBackend, t *testing.T, contractAddre
 		case err := <-sub.Err():
 			log.Fatal(err)
 		case vLog := <-logs:
-			t.Log(vLog) // pointer to event log
+			// Example how the log can be parsed back to object and relevant fields extracted
+			decided, _ := contract.ParseDecided(vLog)
+			t.Log(decided.Decision, decided.TxOrigin, decided.TxNonce)
 		}
 	}
 }
