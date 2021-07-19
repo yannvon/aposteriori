@@ -1,13 +1,16 @@
 package main
 
 import (
+	"context"
 	"log"
 	"math/big"
 	"strings"
 	"time"
 
+	"github.com/ethereum/go-ethereum"
 	"github.com/ethereum/go-ethereum/accounts/abi/bind"
 	"github.com/ethereum/go-ethereum/common"
+	"github.com/ethereum/go-ethereum/core/types"
 	"github.com/ethereum/go-ethereum/ethclient"
 	"github.com/yannvon/aposteriori/contracts"
 )
@@ -20,7 +23,7 @@ const Key5 = `{"address":"560b52b1a82fc8fd3715345a5ee4080502d82f2d","crypto":{"c
 
 func main() {
 	// connect to an ethereum node  hosted by infura
-	blockchain, err := ethclient.Dial("https://rinkeby.infura.io/v3/f9b32e6b21e740eab75d12e2e0318f3d")
+	blockchain, err := ethclient.Dial("wss://rinkeby.infura.io/ws/v3/f9b32e6b21e740eab75d12e2e0318f3d")
 	chainID := big.NewInt(4)
 
 	if err != nil {
@@ -57,6 +60,8 @@ func main() {
 	if err != nil {
 		log.Fatalf("Unable to bind to deployed instance of contract:%v\n", addr)
 	}
+
+	go handleEvents(blockchain, addr)
 
 	// Define consensus instance
 	txOrigin := auth1.From
@@ -101,4 +106,26 @@ func main() {
 	out, _ = contract.Read(nil, txOrigin, nonce)
 	println(out.String())
 
+}
+
+func handleEvents(client *ethclient.Client, contractAddress common.Address) {
+	// Subscribe to events
+	query := ethereum.FilterQuery{
+		Addresses: []common.Address{contractAddress},
+	}
+
+	logs := make(chan types.Log)
+	sub, err := client.SubscribeFilterLogs(context.Background(), query, logs)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	for {
+		select {
+		case err := <-sub.Err():
+			log.Fatal(err)
+		case <-logs:
+			print("Event received") // (vLog) // pointer to event log
+		}
+	}
 }

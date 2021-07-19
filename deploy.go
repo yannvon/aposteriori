@@ -14,7 +14,7 @@ import (
 
 func deploy() {
 	// connect to an ethereum node  hosted by infura
-	blockchain, err := ethclient.Dial("https://rinkeby.infura.io/v3/f9b32e6b21e740eab75d12e2e0318f3d")
+	blockchain, err := ethclient.Dial("wss://rinkeby.infura.io/ws/v3/f9b32e6b21e740eab75d12e2e0318f3d")
 	chainID := big.NewInt(4)
 
 	if err != nil {
